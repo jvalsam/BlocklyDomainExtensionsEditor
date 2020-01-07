@@ -1,0 +1,20 @@
+------------------------------------------------------------------------
+
+* Administration:
+    - VPL elements and missions
+        > define blockly elements and define blockly meta elements
+            . meta elements includes ctor functions with input jsonObj and they are called on specified signals
+              in order to create, edit and delete block elements from missions and from sources.
+
+        > define the sources: list of blockly elements
+    - configuration of Blockly
+
+------------------------------------------------------------------------
+
+* IDE run-time
+    - open source (source)
+    - create new source (type, source*)
+    - delete source (source)
+    - receive signal (signal)
+
+------------------------------------------------------------------------

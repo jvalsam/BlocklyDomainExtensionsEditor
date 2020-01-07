@@ -1,0 +1,103 @@
+
+> requirements:
+
+1.
+{
+	type: 'category',
+	name: "Smart Objects",
+	elements: [
+		
+		// define vpl elements which blocks to be included
+		{
+			name: { domainElem: 'SmartObject' }
+			type: 'category',
+			elements: [ // select which are the elements are included
+				{
+					name: 'getProperty',
+					type: 'Element',
+					values: 'xml includes static values of the item'
+				}
+			]
+			or could be "ALL"
+		},
+		// list of all domain element instances of a specific element
+		{
+			name: { domainElem: 'SmartObject', item: 'getProperty' }
+		}
+	]
+
+{
+	name: 'Smart Objects',
+	type: 'category',
+	colour: 232, (optional),
+	elements: [
+		{
+			name: { domainElem: 'SmartObject' },
+			type: 'category',
+			colour: { domainElem: 'SmartObject' },
+			elements: [
+				// selection of the elements
+			]
+		}
+	]
+},
+{
+	type: 'separator',
+	sep: sep: 32
+},
+{
+	name: 'getProperty', // find static?
+	type: 'block',
+	variables: []
+},
+{
+	name: { domainElem: 'SmartObject', item:'getProperty' }, // find static?
+	type: 'element',
+	variables: []
+},
+{
+	type: 'label',
+	text: 'text of the label'
+	style: {
+		name: ''
+	}
+},
+{
+	type: 'button'
+}
+
+// create xml static with injections
+// means:
+//
+
+{
+	toolbox:'<xml>' +
+				'<category ></category>' +
+				'<sep></sep>' +
+				'<category ></category>' +
+			'</xml>'
+;
+
+
+one mission could refer only selected elements (one or more) or all elements
+
+in case of one element -> ok one callback is called to notify
+
+- in case of more elements?
+
+
+- step 1: fix callbacks and ref handling of the domain elements:
+
+> domainElement has to collect info for the missions and which are the elements
+  that are referenced it controls all the callbacks of the mission...
+
+  bookFunc in the elements means addMission means -> call parent to 
+
+
+- step 2: fix generators of the categories and the elements
+
+- step 3: Loading existing projects
+    System have to reload the created VPL Domain Elements, and their items
+
+    1. each domain element data exist in the project has to be loaded
+    2. 
