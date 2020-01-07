@@ -10,13 +10,38 @@ DefineVPLDomainElements(
                 name: 'SmartObject',
                 blocklyElems: [
                     {
-                        name: 'getProperty',
-                        blockDef: (data) => {
-
-                        },
-                        codeGen: (block) => {
-
-                        }
+                        name: 'getValue',
+                        blockDef: (data) => ({
+                            init: function() {
+                                this.jsonInit({
+                                    "type": "getter",
+                                    "message0": "%1 get"+data.functionName+"()",
+                                    "args0": [
+                                        {
+                                            "type": "field_image",
+                                            "src": data.device.image,
+                                            "width": 15,
+                                            "height": 15,
+                                            "alt": "*"
+                                        }
+                                    ],
+                                    "output": "getter",
+                                    "colour": data.colours.getValue || 210,
+                                    "tooltip": data.device.LocalName,
+                                    "helpUrl": data.helpUrl || ''
+                                });
+                            }
+                        }),
+                        codeGen: (data) => (function(block) {
+                            var code = "await _.get(devicesIneed,'" +
+                                data.deviceName +
+                                "')['" +
+                                data.functionName +
+                                "']()"
+                            ;
+                            var name = data.deviceName;
+                            return [code, Blockly.JavaScript.ORDER_NONE];
+                        })
                     }
                 ],
                 signals: [
