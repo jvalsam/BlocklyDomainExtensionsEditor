@@ -1,0 +1,67 @@
+
+-> Project WSP manager
+
+* Smart Objects
+    1. Smart_Object
+    2. Smart_Environment
+
+* Tasks
+    1. Task // Blockly is able to play the role of VPL Editor...
+    2. Group //
+
+    // one task with name "Start", that is able to handle_smart_object_app
+    // this task is read only
+    // this task is able to exec the other tasks...
+    
+    // use the Events as vpl elements to handle them
+    // are able to refer to them and activate/deactivate them
+    // by default: the events are able to fire just once
+
+* Events
+    1. Condition // Observer with Condition
+    2. Calendar/Time // book events of the 
+
+
+// TODO: use builder and define the elements in domain blockly blocks to handle
+* Screen
+    // 
+
+Run-time:
+
+- The domain author writes the run-time file
+
+    * imports libraries
+    * init glb variables etc.
+
+    - we provide the project source in objects?
+
+    * the domain author has to develop function with 
+      StartApp (appInst)
+
+      appInst is build and have specific json schema
+
+
+    appInstance = {
+        CategoryName: [
+            {
+                name: AirCondition
+                data: 'src' || object etc.
+            }
+        ],
+        CategoryName2: [
+            {
+
+            }
+        ]
+    }
+
+    /**
+     *
+     *
+     **/
+    function StartApp(appInst) {
+        appInst.Tasks.forEach(task => {
+            eval(task);
+        });
+        
+    }
