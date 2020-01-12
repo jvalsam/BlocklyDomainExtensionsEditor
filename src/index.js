@@ -1,6 +1,6 @@
 import * as Blockly from 'blockly';
 
-
+import { InitializeVPDL } from './iot-domain/vpdl/iot-domain';
 
 document.addEventListener("DOMContentLoaded", function () {
     const workspace = Blockly.inject('blocklyDiv',
@@ -9,5 +9,5 @@ document.addEventListener("DOMContentLoaded", function () {
             media: 'media/'
         });
 
-        
+        InitializeVPDL();
 });

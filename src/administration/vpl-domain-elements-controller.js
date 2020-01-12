@@ -16,7 +16,7 @@ class _VPLDomainElementsController {
     }
 
     register(domain, elems) {
-        this.domains[domain] = elems;
+        this._domains[domain] = elems;
     }
 
     load(domain) {
@@ -36,5 +36,4 @@ class _VPLDomainElementsController {
     }
 }
 
-const VPLDomainElementsController = new _VPLDomainElementsController();
-export default VPLDomainElementsController;
+export const VPLDomainElementsController = new _VPLDomainElementsController();

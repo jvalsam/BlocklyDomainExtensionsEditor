@@ -74,12 +74,12 @@ export class VPLDomainElements {
             .forEach((key) => {
                 let vplElem = this.vplElems[key];
                 
-                if (vplElem.constructor !== VPLDomainElementHandler) continue;
-
-                listenSignals = {
-                    ...listenSignals,
-                    ...vplElem.signals
-                };
+                if (vplElem.constructor === VPLDomainElementHandler) {
+                    listenSignals = {
+                        ...listenSignals,
+                        ...vplElem.signals
+                    };
+                }
             });
 
         return listenSignals;

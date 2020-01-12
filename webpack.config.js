@@ -8,6 +8,23 @@ module.exports = {
     entry: {
         index: './src/index.js'
     },
+    devtool: 'source-map',
+    module: {
+        rules: [{
+            test: /\.js$/,
+            exclude: /node_modules/,
+            use: {
+                loader: 'babel-loader',
+                options: {
+                    presets: ['env'],
+                    plugins: [
+                        "transform-es2015-destructuring",
+                        "transform-object-rest-spread"
+                    ]
+                }
+            }
+        }]
+    },
     output: {
         path: path.resolve(__dirname, 'build'),
         filename: '[name].js'
