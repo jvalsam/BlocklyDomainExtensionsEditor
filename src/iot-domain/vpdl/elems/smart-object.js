@@ -25,13 +25,8 @@ export const SmartObject = {
                 }
             }),
             codeGen: (data) => (function(block) {
-                var code = "await _.get(devicesIneed,'" +
-                    data.deviceName +
-                    "')['" +
-                    data.functionName +
-                    "']()"
-                ;
-                var name = data.deviceName;
+                var code = 'await SmartObjects["' + data.deviceName + '"]' +
+                            '.getValue("' + data.functionName + '");';
                 return [code, Blockly.JavaScript.ORDER_NONE];
             })
             //, debugGen: (data) => open VISMA view UI of the smart

@@ -3,6 +3,10 @@ export const SmartObjectsTask =
     name: 'SmartObjectsTask',
     items: [
         {
+            type: 'Predefined',
+            elements: 'ALL' // select: [{category:'catName',elems:[...]}, ...]
+        },
+        {
             name: 'Smart Objects',
             type: 'Category',
             colour: '210',
@@ -14,8 +18,7 @@ export const SmartObjectsTask =
                     type: 'Category',
                     elements: 'ALL' // Array of objects to select
                 }
-            ],
-            path: []
+            ]
         }
     ]
 };

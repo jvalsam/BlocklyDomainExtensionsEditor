@@ -35,8 +35,6 @@ export const SmartObjectsTask = {
                 var code = 'tasks [' + data.taskName + ']();';
                 return [code, Blockly.JavaScript.ORDER_NONE];
             })
-            //, debugGen: (data) => open VISMA view UI of the smart
-            // object
         }
     ],
     signals: [

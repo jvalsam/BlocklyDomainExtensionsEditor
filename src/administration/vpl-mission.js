@@ -1,5 +1,6 @@
 import { assert } from './../common/assert';
 import { VPLBlocklyMultiElementHandler } from './vpl-blockly-element';
+import { genPredefinedCategoriesToolbox } from '../common/general-blockly-toolbox';
 
 class VPLToolbox {
     constructor(items, domainElems, mission) {
@@ -247,6 +248,15 @@ class VPLToolbox {
             .push(this.newLabel(item));
     }
 
+    addPredefined(item) {
+        return {
+            type: item.type,
+            elements: (typeof item.elements === 'string')
+                ? item.elements
+                : [...item.elements]
+        };
+    }
+
     notSupportedToolboxElement(item) {
         throw new Error(
             item.type +
@@ -438,6 +448,10 @@ class VPLToolbox {
         });
 
         return toolbox;
+    }
+
+    _genPredefinedToolbox(item) {
+        return genPredefinedCategoriesToolbox(item.elements);
     }
 
     _genCategoryElements(elements) {
