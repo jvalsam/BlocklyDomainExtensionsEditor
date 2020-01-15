@@ -22,7 +22,11 @@ class VPLToolbox {
     _findCategory(path) {
         let tree = this._categories;
         path.forEach((name) => {
-            let index = tree.findIndex((element) => element.name === name);
+            let index = tree.findIndex((element) =>
+                element.name === name ||
+                ( typeof element.name === 'object' &&
+                  element.name.domainElem === name )
+            );
 
             assert(
                 index !== -1,
@@ -59,7 +63,7 @@ class VPLToolbox {
         this.__domainElems.bookMission(
             this._mission,
             {
-                domainElem: parent.name,
+                domainElem: parent.name.domainElem,
                 item: newElement.name
             }
         );
@@ -69,11 +73,12 @@ class VPLToolbox {
         return (elem, index) => {
             // no multi element or just one element
             if (elementsLength === 1 ||
-                elem.constructor !== VPLBlocklyMultiElementHandler) {
-                    return {
-                        up: false,
-                        down: false
-                    };
+                elem.constructor !== VPLBlocklyMultiElementHandler
+            ) {
+                return {
+                    up: false,
+                    down: false
+                };
             }
             // 1st element
             if (index === 0) {
@@ -101,7 +106,7 @@ class VPLToolbox {
     addAllDomainElements(item, path) {
         // retrieve all the elements of the domain element
         let elems = this.__domainElems
-            .getDomainElementItems(item.domainElem);
+            .getDomainElementItems(item.name.domainElem);
 
         let names = Object.keys(elems);
         let needsSeparators = this._needsSeparators(names.length);

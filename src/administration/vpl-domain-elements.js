@@ -39,14 +39,14 @@ export class VPLDomainElements {
             }
 
             // outer look of VPLElements
-            if (name in this.vplElems) {
-                return this.vplElems[name];
+            if (element in this.vplElems) {
+                return this.vplElems[element];
             }
 
             // inner lookup in VPLElements
             Object.keys(this.vplElems).forEach(
                 (key) => {
-                    let vplElement = this.vplElems[key].__findVPLElement(name);
+                    let vplElement = this.vplElems[key].__findVPLElement(element);
                     if (vplElement!==null) {
                         return vplElement;
                     }
@@ -57,7 +57,7 @@ export class VPLDomainElements {
             return null;
         };
         
-        this.getDomainElementItems = (name) => {
+        this.vplElems.getDomainElementItems = (name) => {
             let domainElem = this.vplElems.__findVPLElement(name);
             
             return domainElem.vplBlocklyElems;

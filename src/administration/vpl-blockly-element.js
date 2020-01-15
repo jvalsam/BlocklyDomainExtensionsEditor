@@ -257,7 +257,7 @@ export class VPLDomainElementHandler {
     }
 
     __findVPLElement(name) {
-        return this._vplBlocklyElems[index] || null;
+        return this._vplBlocklyElems[name] || null;
     }
 
     onCreate(data) {
