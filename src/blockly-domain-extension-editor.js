@@ -1,3 +1,6 @@
+import * as Blockly from 'blockly';
+import { IDECore } from './../dummy/ide-core';
+
 import {
     VPLDomainElementsController
 } from "./administration/vpl-domain-elements-controller";
@@ -9,21 +12,67 @@ export class BlocklyDExEditor {
         this._wsps = {};
         this._editorSignals = {};
         this._domainSignals = {};
+        this._currentNO = 1; // TODO: load proj total blockly instances
 
         VPLDomainElementsController.blocklyDExEditor = this;
     }
+
+    get name() {
+        return 'BlocklyDExEditor';
+    }
+
     // holder of the missions and wsps are open is required...
 
     createSource(mission, selector) {
+        let data = {
+            id: mission + (++this._currentNO),
+            mission: mission,
+            text: '',
+            wsp: null
+        };
 
+        if (!(mission in this._wsps)) {
+            this._missions[mission] = [];
+        }
+
+        let toolbox = VPLDomainElementsController.getToolbox(mission);
+        srcData.wsp = Blockly.inject(
+            selector,
+            {
+                toolbox: toolbox,
+                media: 'media/'
+            }
+        );
+        this._wsps[mission].push(datd);
+
+        //
+        IDECore.postSignal('create-'+mission, data, this.name);
     }
 
-    openSource(src, selector) {
+    openSource(data, selector) {
+        let toolbox = VPLDomainElementsController.getToolbox(mission);
 
+        data.wsp = Blockly.inject(
+            selector,
+            {
+                toolbox: toolbox,
+                media: 'media/'
+            }
+        );
+
+        let xml = Blockly.Xml.textToDom(data.text);
+        Blockly.Xml.domToWorkspace(xml, data.wsp);
+
+        if (!(mission in this._wsps)) {
+            this._missions[mission] = [];
+        }
+
+        this._wsps[data.mission] = data;
     }
 
     closeSource(srcId) {
-
+        // var xml = Blockly.Xml.workspaceToDom(workspace);
+        // var xml_text = Blockly.Xml.domToText(xml);
     }
 
     deleteSource(srcId) {
@@ -49,7 +98,10 @@ export class BlocklyDExEditor {
 
     onPopulateSignals() {
         // define which are the signals that are received
-        let signals = Object.keys(this._)
+        this._domainSignals = {};
+        VPLDomainElementsController.signals.forEach(signal =>
+            this._domainSignals[signal.name] = signal.action
+        );
         // TODO: based on the new domain we have to refresh signals are 
         // listened
     }
@@ -59,7 +111,7 @@ export class BlocklyDExEditor {
     }
 
     onLoadDomain() {
-        this._domainSignals = VPLDomainElementsController.signals;
+        VPLDomainElementsController.signals;
         
         this.onPopulateSignals();
         // all wsps has to be open in the project?

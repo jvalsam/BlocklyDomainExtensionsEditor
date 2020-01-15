@@ -15,6 +15,8 @@ class VPLToolbox {
         });
 
         this._currGenDomainElemInstanceId = null;
+
+        this.generateBlocklyToolbox();
     }
 
     _findCategory(path) {
@@ -152,9 +154,7 @@ class VPLToolbox {
         
         this.__domainElems.bookMission(
             this._mission,
-            {
-                domainElem: item.name
-            }
+            item.name
         );
         
         this.addDomainElements(item);
@@ -265,11 +265,11 @@ class VPLToolbox {
     }
 
     addToolboxElement(item) {
-        let _addToolboxElement =
-            this['add' + item.type] ||
-            this.notSupportedToolboxElement;
+        let methodName = 'add' + item.type;
+        
+        if (!(methodName in this)) this.notSupportedToolboxElement(item);
 
-        _addToolboxElement(item);
+        this[methodName](item);
     }
 
     deleteElement(elemName, tree) {
@@ -504,6 +504,10 @@ export class VPLMission {
 
     get name() {
         return this._name;
+    }
+
+    get toolbox() {
+        return this._toolbox.blocklyToolbox;
     }
 
     loadToolbox(wsp) {

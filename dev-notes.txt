@@ -93,11 +93,70 @@ in case of one element -> ok one callback is called to notify
 
   bookFunc in the elements means addMission means -> call parent to 
 
+_______________________________________________________________________________
 
-- step 2: fix generators of the categories and the elements
+- testing process:
 
-- step 3: Loading existing projects
+steps:
+1 connect Blockly instance with the start page and call initialize of the IDE
+2 use general toolbox in the dummy blockly of the intro
+3 postCreate new smart object from the ViSma -> define button to press for the
+  changes, add btns to edit the areas if needed
+4 postCreate new task
+5 postDelete new task
+
+- Development: Loading existing projects
     System have to reload the created VPL Domain Elements, and their items
 
     1. each domain element data exist in the project has to be loaded
     2. 
+
+-------------------------------------------------------------------------------
+
+DomainElements = [
+	{
+		name: 'example',
+		blocklyElems: [
+			{
+				name: 'getValue',
+				blockDef: (data) => {/* def constructions depends on data */},
+				codeGen: (data) => {/* def code generation based on data */},
+				debugGen: (data) => {/* def code generation based on data */}
+			}
+		],
+		flowElems: [
+			{
+				name: 'observer',
+				nodeDef: (data) => { /* instantiates the new node of the VPL flow editor */ },
+				codeGen: (data) => {},
+				debugGen: (data) => {}
+			}
+		],
+		guiElems: [
+			{
+				name: 'so_handling_ui_component',
+				microuiDef: (data) => {}
+			}
+		],
+		signals: [ // specific mission vpl editor that constructs domainElement sends the signals
+			{ signal: 'create-example', action: 'onCreate' },
+			...
+		]
+	}
+];
+
+DomainMissions = [
+	{
+		name: 'SmartObjectTask',
+		items: [
+			// refer the elems exist in the toolbox of the VPL Editor that handles the specific mission
+		]
+	}
+];
+
+// One mission is able to be domain element in order to be handled by elems
+// e.g. mission: 'task-automations' is Blockly instance and it is able to be handled
+		via blockly blocks (run the task)
+		mission: 'create-screen' is GUI Editor instance and it is able to be handled
+		via blockly blocks as a screen
+		etc.

@@ -20,11 +20,15 @@ class _VPLDomainElementsController {
     }
 
     load(domain) {
-        if (!this._currVPLDomainElements) this._currVPLDomainElements.unload();
+        if (this._currVPLDomainElements) this._currVPLDomainElements.unload();
 
         this._currVPLDomainElements = LoadVPLDomainElements(
-            domain, this.domains[domain]
+            domain, this._domains[domain]
         );
+    }
+
+    getToolbox(mission) {
+
     }
 
     set blocklyDExEditor(blocklyEditor) {

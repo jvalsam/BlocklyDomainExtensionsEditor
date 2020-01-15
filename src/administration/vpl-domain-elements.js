@@ -8,7 +8,7 @@ import { VPLDomainElementsController } from './vpl-domain-elements-controller';
 export class VPLDomainElements {
     constructor(domain) {
         this.domain = domain;
-        this.missions = {};
+        this.vplMissions = {};
         this.vplElems = {};
     }
 
@@ -96,6 +96,10 @@ export class VPLDomainElements {
         );
     }
 
+    getToolbox(mission) {
+        return this.vplMissions[vplMission.name].toolbox;
+    }
+
     // TODO: call all elements and missions to unload
     unload() {
 
@@ -122,8 +126,8 @@ export function LoadVPLDomainElements(domain, elemsLoader) {
     let vplDomainElemsData = elemsLoader();
 
     let vplDomainElems = new VPLDomainElements(domain);
-    vplDomainElems.addElements(vplDomainElemsData.elements);
-    vplDomainElems.addMissions(vplDomainElemsData.missions);
+    vplDomainElems.addElements(...vplDomainElemsData.elements);
+    vplDomainElems.addMissions(...vplDomainElemsData.missions);
 
     return vplDomainElems;
 }

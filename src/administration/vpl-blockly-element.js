@@ -36,7 +36,7 @@ class VPLElementHandler {
         name,
         parent =null
     ) {
-        if (new.target === VPLElement) {
+        if (new.target === VPLElementHandler) {
             throw new TypeError('Error: Cannot construct abstract class.');
         }
 
@@ -221,7 +221,7 @@ export class VPLDomainElementHandler {
 
         blocklyElems.forEach((blocklyElem) => {
             let ctor = {
-                init: blocklyElem.init,
+                blockDef: blocklyElem.blockDef,
                 codeGen: blocklyElem.codeGen,
                 debGen: blocklyElem.debGen
             };

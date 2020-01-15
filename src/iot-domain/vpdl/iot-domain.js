@@ -17,14 +17,13 @@ export function InitializeVPDL() {
         'IoTAutomations',
         () => ({
             elements: [
-                SmartObjectElem,
-                SmartEnvironmentElem,
+                SmartObject,
+                SmartEnvironment,
                 SmartObjectsTaskElem,
                 SmartObjectsTasksGroupElem
             ],
             missions: [
-                SmartObject,
-                SmartEnvironment,
+                
                 SmartObjectsTask,
                 SmartObjectsTasksGroup
             ]
