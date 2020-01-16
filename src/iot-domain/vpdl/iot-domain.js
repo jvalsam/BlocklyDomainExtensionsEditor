@@ -18,14 +18,12 @@ export function InitializeVPDL() {
         () => ({
             elements: [
                 SmartObject,
-                SmartEnvironment,
                 SmartObjectsTaskElem,
-                SmartObjectsTasksGroupElem
             ],
             missions: [
-                
-                SmartObjectsTask,
-                SmartObjectsTasksGroup
+                SmartObjectsTask
+                //SmartObjectConditionEvent,
+                //SmartObjectCalendarEvent
             ]
         })
     );

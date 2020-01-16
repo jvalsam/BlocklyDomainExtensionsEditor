@@ -1,19 +1,32 @@
-export const SmartObjectsTasksGroup = {
-    name: 'SmartObjectsTasksGroup',
-    blocklyElems: [
-    ],
-    signals: [
+export const SmartObjectsConditionEvent = {
+    name: 'smart-object-condition-event',
+    items: [
         {
-            action: 'onCreate',
-            name: 'create-smart-task-group'
-        },
-        {
-            action: 'onDelete',
-            name: 'delete-smart-task-group'
-        },
-        {
-            action: 'onRename',
-            name: 'rename-smart-task-group'
+            name: 'Smart Objects',
+            type: 'Category',
+            colour: '210',
+            elements: [
+                {
+                    name: 'Smart Objects',
+                    type: 'Category',
+                    colour: '225',
+                    elements: [
+                        {
+                            name: {
+                                domainElem: 'SmartObject'
+                            },
+                            type: 'Category',
+                            elements: [
+                                'smart-object-obs-condition',
+                                'smart-object-obs-condition-and',
+                                'smart-object-obs-condition-or',
+                            ]
+                        }
+                    ]
+                }
+            ]
         }
-    ]
+    ],
+    // predefined code exists when new mission file will be created
+    code: ``
 };

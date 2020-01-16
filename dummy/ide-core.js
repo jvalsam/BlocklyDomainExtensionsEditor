@@ -1,4 +1,5 @@
 import { ViSmaOE } from './visma';
+import { BlocklyDExEditor } from './../src/blockly-domain-extension-editor';
 
 class _IDECore {
     constructor() {
@@ -9,6 +10,8 @@ class _IDECore {
     initialize() {
         ViSmaOE.initialize();
         this.addComponent(ViSmaOE);
+        BlocklyDExEditor.initialize();
+        this.addComponent(BlocklyDExEditor);
     }
 
     postSignal(signal, data, compName) {

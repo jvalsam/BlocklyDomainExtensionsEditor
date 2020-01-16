@@ -40,15 +40,18 @@ export const SmartObjectsTask = {
     signals: [
         {
             action: 'onCreate',
-            name: 'create-smart-objects-task'
+            name: 'create-project-element',
+            mission: 'smart-objects-task'
         },
         {
             action: 'onDelete',
-            name: 'delete-smart-objects-task'
+            name: 'delete-project-element',
+            mission: 'smart-objects-task'
         },
         {
             action: 'onRename',
-            name: 'rename-smart-objects-task'
+            name: 'rename-project-element',
+            mission: 'smart-objects-task'
         }
     ]
 };

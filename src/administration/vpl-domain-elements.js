@@ -97,7 +97,7 @@ export class VPLDomainElements {
     }
 
     getToolbox(mission) {
-        return this.vplMissions[vplMission.name].toolbox;
+        return this.vplMissions[mission].toolbox;
     }
 
     // TODO: call all elements and missions to unload

@@ -254,12 +254,13 @@ class VPLToolbox {
     }
 
     addPredefined(item) {
-        return {
-            type: item.type,
-            elements: (typeof item.elements === 'string')
-                ? item.elements
-                : [...item.elements]
-        };
+        this._findCategory(item.path)
+            .push({
+                type: item.type,
+                elements: (typeof item.elements === 'string')
+                    ? item.elements
+                    : [...item.elements]
+            });
     }
 
     notSupportedToolboxElement(item) {

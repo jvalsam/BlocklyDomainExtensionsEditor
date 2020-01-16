@@ -15,6 +15,13 @@ class _VPLDomainElementsController {
         return this._currVPLDomainElements.signals;
     }
 
+    receiveSignal(signal, data) {
+        
+    }
+
+    // TODO: populate the signals has to be received
+    // notifies when vpl editor has new domain elements to add or remove
+
     register(domain, elems) {
         this._domains[domain] = elems;
     }
@@ -28,7 +35,7 @@ class _VPLDomainElementsController {
     }
 
     getToolbox(mission) {
-
+        return this._currVPLDomainElements.getToolbox(mission);
     }
 
     set blocklyDExEditor(blocklyEditor) {

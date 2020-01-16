@@ -6,8 +6,7 @@ import {
 } from "./administration/vpl-domain-elements-controller";
 
 
-export class BlocklyDExEditor {
-
+class _BlocklyDExEditor {
     constructor() {
         this._wsps = {};
         this._editorSignals = {};
@@ -21,6 +20,10 @@ export class BlocklyDExEditor {
         return 'BlocklyDExEditor';
     }
 
+    initialize() {
+
+    }
+
     // holder of the missions and wsps are open is required...
 
     createSource(mission, selector) {
@@ -32,7 +35,7 @@ export class BlocklyDExEditor {
         };
 
         if (!(mission in this._wsps)) {
-            this._missions[mission] = [];
+            this._wsps[mission] = [];
         }
 
         let toolbox = VPLDomainElementsController.getToolbox(mission);
@@ -140,3 +143,4 @@ export class BlocklyDExEditor {
 
     }
 }
+export const BlocklyDExEditor = new _BlocklyDExEditor();

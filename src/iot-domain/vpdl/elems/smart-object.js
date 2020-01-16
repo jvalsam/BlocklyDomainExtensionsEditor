@@ -31,6 +31,16 @@ export const SmartObject = {
             })
             //, debugGen: (data) => open VISMA view UI of the smart
             // object
+        },
+        {
+            name: 'setValue',
+            blockDef: (data) => ({/* TODO*/ }),
+            codeGen: (data) => (function(block) {/* TODO */})
+        },
+        { // block that end-user builds the condition event
+            name: "condition_event_so",
+            blockDef: (data) => ({/* TODO */}),
+            codeGen: (data) => (function(block) {/* TODO */})
         }
     ],
     signals: [
