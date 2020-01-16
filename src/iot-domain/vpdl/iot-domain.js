@@ -12,6 +12,15 @@ import {
 import { SmartObjectsTask } from './missions/smart-objects-task';
 import { SmartObjectsTasksGroup } from './missions/smart-objects-tasks-group';
 
+import {
+    getPredefinedCategories,
+    defineGeneralCategories
+} from '../../common/general-blockly-toolbox';
+
+let predefinedCategories = getPredefinedCategories();
+// domain author is able to edit them...
+defineGeneralCategories(predefinedCategories);
+
 export function InitializeVPDL() {
     DefineVPLDomainElements(
         'IoTAutomations',

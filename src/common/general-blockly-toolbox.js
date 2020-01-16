@@ -589,6 +589,7 @@ function _genToolboxCategory(category, choices) {
         toolbox.gen += ' custom="' + category.data.custom + '">';
     }
     else {
+        toolbox.gen += '>';
         let elem = _genToolboxElems(category.data.elems, choices);
         toolbox.gen += elem.gen;
         toolbox.extra = [...elem.extra];
