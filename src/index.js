@@ -20,5 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
         'blocklyDiv'
     );
 
-
+    document.getElementById('btnAddSO').onclick = function (evt) {
+        alert('btn clicked!');
+    };
 });

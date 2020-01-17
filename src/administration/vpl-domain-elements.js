@@ -3,7 +3,7 @@ import {
     VPLBlocklyElementHandler
 } from './vpl-blockly-element';
 import { VPLMission } from './vpl-mission';
-import { VPLDomainElementsController } from './vpl-domain-elements-controller';
+import { VPLDomainElementsController } from './vpl-domain-elements-manager';
 
 export class VPLDomainElements {
     constructor(domain) {
@@ -70,17 +70,19 @@ export class VPLDomainElements {
     get signals() {
         let listenSignals = {};
 
-        Object.keys(this.vplElems)
-            .forEach((key) => {
-                let vplElem = this.vplElems[key];
-                
-                if (vplElem.constructor === VPLDomainElementHandler) {
-                    listenSignals = {
-                        ...listenSignals,
-                        ...vplElem.signals
-                    };
+        for(key in this.vplElems) {
+            let vplElem = this.vplElems[key];
+            
+            if (vplElem.constructor === VPLDomainElementHandler) {
+                for (signal in vplElem.signals) {
+                    if (!(signal in listenSignals)) listenSignals[signal] = [];
+
+                    listenSignals[signal].push(
+                        vplElem.signals[signal]
+                    );
                 }
-            });
+            }
+        }
 
         return listenSignals;
     }

@@ -1,8 +1,7 @@
 import { assert } from './assert';
 
 const categLogic = {
-    title: 'Logic',
-    name: '%{BKY_CATLOGIC}',
+    name: 'Logic',
     colour: '%{BKY_LOGIC_HUE}',
     elems: [
         {
@@ -37,8 +36,7 @@ const categLogic = {
 };
 
 const categLoops = {
-    title: 'Loops',
-    name: '%{BKY_CATLOOPS}',
+    name: 'Loops',
     colour: '%{BKY_LOOPS_HUE}',
     elems: [
         {
@@ -56,7 +54,7 @@ const categLoops = {
             block: '<block type="controls_whileUntil"></block>'
         },
         {
-            name: '%{BKY_CAT',
+            name: 'controls_for',
             block: `<block type="controls_for">
                         <value name="FROM">
                         <shadow type="math_number">
@@ -87,8 +85,7 @@ const categLoops = {
 };
 
 const categMath = {
-    title: 'Math',
-    name: '%{BKY_CATMATH}',
+    name: 'Math',
     colour: '%{BKY_MATH_HUE}',
     elems: [
         {
@@ -233,9 +230,8 @@ const categMath = {
 };
 
 const categText = {
-    title: 'Text',
-    name: '%{BKY_CATTEXT}',
-    colour: '%{BKY_TEXT_HUE}',
+    name: 'Text',
+    colour: '%{BKY_TEXTS_HUE}',
     elems: [
         {
             name: 'text',
@@ -339,7 +335,7 @@ const categText = {
                     </block>`
         },
         {
-            name: '',
+            name: 'text_prompt_ext',
             block: `<block type="text_prompt_ext">
                         <value name="TEXT">
                         <shadow type="text">
@@ -352,8 +348,7 @@ const categText = {
 };
 
 const categLists = {
-    title: 'Lists',
-    name: '%{BKY_CATLISTS}',
+    name: 'Lists',
     colour: '%{BKY_LISTS_HUE}',
     elems: [
         {
@@ -442,8 +437,7 @@ const categLists = {
 };
 
 const categColour = {
-    title: 'Colour',
-    name: '%{BKY_CATCOLOUR',
+    name: 'Colour',
     colour: '%{BKY_COLOUR_HUE}',
     elems: [
         {
@@ -498,16 +492,14 @@ const categColour = {
 };
 
 const categVariables = {
-    title: 'Variables',
-    name: '%{BKY_CATVARIABLES',
-    colour: '%{BKY_VARIABLES_HUE}',
+    name: 'Variables',
+    colour: '%{BKY_VARIABLES_DYNAMIC_HUE}',
     custom: 'VARIABLE'
 };
 
 const categFunctions = {
-    title: 'Functions',
-    name: '%{BKY_CATFUNCTIONS',
-    colour: '%{BKY_FUNCTIONS_HUE}',
+    name: 'Functions',
+    colour: '%{BKY_PROCEDURES_HUE}',
     custom: 'PROCEDURE'
 };
 
@@ -605,13 +597,13 @@ function _genToolboxCategory(category, choices) {
  * @param {* { category: String, elems: [String] }
  *  } choices
  */
-export function genPredefinedCategoriesToolbox(choices) {
+export function genPredefinedCategoriesToolbox(general) {
     let toolbox = {
         gen: '',
         extra: []
     };
 
-    if (choices === 'ALL') {
+    if (general.choices === 'ALL') {
         currentCategories.forEach(category => {
             let categ = _genToolboxCategory(category);
             toolbox.gen += categ.gen;
@@ -619,7 +611,7 @@ export function genPredefinedCategoriesToolbox(choices) {
         });
     }
     else {
-        choices.forEach(choice => {
+        general.choices.forEach(choice => {
             let result = currentCategories.filter(category =>
                 category.name === choice.category
             );
@@ -629,6 +621,16 @@ export function genPredefinedCategoriesToolbox(choices) {
             toolbox.gen += categ.gen;
             toolbox.extra = [...categ.extra];
         });
+    }
+
+    if (general.category) {
+        toolbox.gen = '<category name="' + general.category.name + '"' +
+                (general.category.expanded
+                    ? ' expanded="' + general.category.expanded + '"'
+                    : ''
+                ) + '>' +
+                toolbox.gen +
+            '</category>';
     }
 
     return toolbox;

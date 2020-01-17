@@ -1,10 +1,16 @@
 import { LoadVPLDomainElements } from './vpl-domain-elements';
+import { IDECore } from '../../dummy/ide-core';
 
-class _VPLDomainElementsController {
+class _VPLDomainElementsManager {
     constructor() {
         this._domains = {};
         this._currVPLDomainElements = null;
         this._blocklyDExEditor = null;
+        this._signalActions = {}
+    }
+
+    get name() {
+        return 'VPLDomainElementsManager'
     }
 
     get data() {
@@ -16,7 +22,24 @@ class _VPLDomainElementsController {
     }
 
     receiveSignal(signal, data) {
-        
+        let signals = this.signals;
+
+        if (!(signal in signals)) {
+            throw new Error(
+                'Signal ' + signal +
+                ' is not listened by the VPLDomainElementsManager.'
+            );
+        }
+
+        signals[signal] (data);
+    }
+
+    // if there are signals already, updates the signals
+    listenSignals() {
+        IDECore.listensSignals(
+            Object.keys(this.signals),
+            this.name
+        );
     }
 
     // TODO: populate the signals has to be received
@@ -32,6 +55,8 @@ class _VPLDomainElementsController {
         this._currVPLDomainElements = LoadVPLDomainElements(
             domain, this._domains[domain]
         );
+
+        this.listenSignals();
     }
 
     getToolbox(mission) {
@@ -47,4 +72,4 @@ class _VPLDomainElementsController {
     }
 }
 
-export const VPLDomainElementsController = new _VPLDomainElementsController();
+export const VPLDomainElementsManager = new _VPLDomainElementsManager();

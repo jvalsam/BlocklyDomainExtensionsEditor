@@ -96,7 +96,9 @@ in case of one element -> ok one callback is called to notify
 
 - step 2: fix generators of the categories and the elements
 
-- step 3: Loading existing projects
+- step 3: domain elements controller -> define signals
+
+- step 4: Loading existing projects
     System have to reload the created VPL Domain Elements, and their items
 
     1. each domain element data exist in the project has to be loaded

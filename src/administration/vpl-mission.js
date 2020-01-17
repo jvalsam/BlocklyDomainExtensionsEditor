@@ -257,7 +257,8 @@ class VPLToolbox {
         this._findCategory(item.path)
             .push({
                 type: item.type,
-                elements: (typeof item.elements === 'string')
+                category: item.category,
+                choices: (typeof item.elements === 'string')
                     ? item.elements
                     : [...item.elements]
             });
@@ -457,7 +458,7 @@ class VPLToolbox {
     }
 
     _genPredefinedToolbox(item) {
-        return genPredefinedCategoriesToolbox(item.elements);
+        return genPredefinedCategoriesToolbox(item);
     }
 
     _genCategoryElements(elements) {

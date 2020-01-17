@@ -39,14 +39,19 @@ class _BlocklyDExEditor {
         }
 
         let toolbox = VPLDomainElementsController.getToolbox(mission);
-        srcData.wsp = Blockly.inject(
+        var toolboxXml = Blockly.Xml.textToDom(toolbox.gen);
+
+        data.wsp = Blockly.inject(
             selector,
             {
-                toolbox: toolbox,
+                toolbox: toolboxXml,
                 media: 'media/'
             }
         );
-        this._wsps[mission].push(datd);
+
+        //TODO: handle case of extra handlers and style...
+
+        this._wsps[mission].push(data);
 
         //
         IDECore.postSignal('create-'+mission, data, this.name);

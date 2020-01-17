@@ -4,7 +4,11 @@ export const SmartObjectsTask =
     items: [
         {
             type: 'Predefined',
-            elements: 'ALL' // select: [{category:'catName',elems:[...]}, ...]
+            elements: 'ALL', // select: [{category:'catName',elems:[...]}, ...]
+            category: {
+                name: 'Built-in',
+                expanded: true
+            }
         },
         {
             name: 'Smart Objects',
