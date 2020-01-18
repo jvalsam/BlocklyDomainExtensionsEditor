@@ -1,4 +1,4 @@
-import Blockly from 'blockly';
+import * as Blockly from 'blockly';
 import Runtime from '../../dummy/run-time';
 
 const GEN_CODE_MODE = {
@@ -11,7 +11,7 @@ function codeGenMethodName(mode) {
 }
 
 function codeGenName() {
-    return codeGenMethodName(Runtime.mode);
+    return codeGenMethodName(Runtime.getMode());
 }
 
 /**
@@ -256,7 +256,7 @@ export class VPLDomainElementHandler {
         return this.name;
     }
 
-    __findVPLElement(name) {
+    getVPLElement(name) {
         return this._vplBlocklyElems[name] || null;
     }
 
@@ -265,14 +265,14 @@ export class VPLDomainElementHandler {
             _domainElementData: data
         };
 
-        for(blocklyElem in this._vplBlocklyElems) {
+        for(let blocklyElem in this._vplBlocklyElems) {
             let createdItems = this._vplBlocklyElems[blocklyElem]
                     .onCreate(data);
             
             this._items[data.id][blocklyElem] = createdItems;
         }
         
-        for (mission in this._missionsRef) {
+        for (let mission in this._missionsRef) {
             this._missionsRef[mission].onLoadElement
         }
     }
@@ -307,19 +307,19 @@ export class VPLDomainElementHandler {
     }
 
     onRuntimeChangeMode() {
-        Object.keys(this._items)
-            .forEach((domainElementInst) => {
-                let data = this._items[domainElementInst]._domainElementData;
+        for (let domainElementInst in this._items) {
+            let data = this._items[domainElementInst]._domainElementData;
 
-                Object.keys(this._vplBlocklyElems)
-                    .forEach((vplBlocklyElem) =>
-                        vplBlocklyElem.onRuntimeChangeMode(data)
-                    );
-            })
+            for (let vplBlocklyElem in this._vplBlocklyElems) {
+                    vplBlocklyElem.onRuntimeChangeMode(data)
+            }
+        }
     }
 
     getAction(action) {
-        return typeof action === 'string' ? this[action] : action;
+        return typeof action === 'string'
+            ? (data) => this[action](data)
+            : action;
     }
 
     get signals() {

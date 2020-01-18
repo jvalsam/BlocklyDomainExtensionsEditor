@@ -3,7 +3,7 @@ import { InitializeVPDL } from './iot-domain/vpdl/iot-domain';
 
 import { IDECore } from './../dummy/ide-core';
 import { BlocklyDExEditor } from './blockly-domain-extension-editor';
-import { VPLDomainElementsController } from './administration/vpl-domain-elements-controller';
+import { VPLDomainElementsManager } from './administration/vpl-domain-elements-manager';
 
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -13,11 +13,20 @@ document.addEventListener("DOMContentLoaded", function () {
     InitializeVPDL();
 
     // load the domain
-    VPLDomainElementsController.load('IoTAutomations');
+    VPLDomainElementsManager.load('IoTAutomations');
 
     BlocklyDExEditor.createSource(
         'smart-objects-task',
         'blocklyDiv'
+    );
+
+    IDECore.postSignal(
+        'create-project-element',
+        {
+            id: 'so-task-1',
+            mission: 'smart-objects-task'
+        },
+        'ProjectWSPManager'
     );
 
     document.getElementById('btnAddSO').onclick = function (evt) {

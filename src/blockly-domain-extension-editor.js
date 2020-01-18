@@ -2,8 +2,8 @@ import * as Blockly from 'blockly';
 import { IDECore } from './../dummy/ide-core';
 
 import {
-    VPLDomainElementsController
-} from "./administration/vpl-domain-elements-controller";
+    VPLDomainElementsManager
+} from "./administration/vpl-domain-elements-manager";
 
 
 class _BlocklyDExEditor {
@@ -12,8 +12,6 @@ class _BlocklyDExEditor {
         this._editorSignals = {};
         this._domainSignals = {};
         this._currentNO = 1; // TODO: load proj total blockly instances
-
-        VPLDomainElementsController.blocklyDExEditor = this;
     }
 
     get name() {
@@ -38,7 +36,7 @@ class _BlocklyDExEditor {
             this._wsps[mission] = [];
         }
 
-        let toolbox = VPLDomainElementsController.getToolbox(mission);
+        let toolbox = VPLDomainElementsManager.getToolbox(mission);
         var toolboxXml = Blockly.Xml.textToDom(toolbox.gen);
 
         data.wsp = Blockly.inject(
@@ -58,7 +56,7 @@ class _BlocklyDExEditor {
     }
 
     openSource(data, selector) {
-        let toolbox = VPLDomainElementsController.getToolbox(mission);
+        let toolbox = VPLDomainElementsManager.getToolbox(mission);
 
         data.wsp = Blockly.inject(
             selector,
@@ -104,10 +102,16 @@ class _BlocklyDExEditor {
         return responseSignal(data);
     }
 
+    listenSignals() {
+        IDECore.listensSignals(
+
+        );
+    }
+
     onPopulateSignals() {
         // define which are the signals that are received
         this._domainSignals = {};
-        VPLDomainElementsController.signals.forEach(signal =>
+        VPLDomainElementsManager.signals.forEach(signal =>
             this._domainSignals[signal.name] = signal.action
         );
         // TODO: based on the new domain we have to refresh signals are 
@@ -119,7 +123,7 @@ class _BlocklyDExEditor {
     }
 
     onLoadDomain() {
-        VPLDomainElementsController.signals;
+        VPLDomainElementsManager.signals;
         
         this.onPopulateSignals();
         // all wsps has to be open in the project?

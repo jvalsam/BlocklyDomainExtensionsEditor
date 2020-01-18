@@ -5,7 +5,6 @@ class _VPLDomainElementsManager {
     constructor() {
         this._domains = {};
         this._currVPLDomainElements = null;
-        this._blocklyDExEditor = null;
         this._signalActions = {}
     }
 
@@ -21,6 +20,10 @@ class _VPLDomainElementsManager {
         return this._currVPLDomainElements.signals;
     }
 
+    initialize() {
+        
+    }
+
     receiveSignal(signal, data) {
         let signals = this.signals;
 
@@ -31,7 +34,7 @@ class _VPLDomainElementsManager {
             );
         }
 
-        signals[signal] (data);
+        signals[signal].forEach(action => action(data));
     }
 
     // if there are signals already, updates the signals
@@ -40,6 +43,21 @@ class _VPLDomainElementsManager {
             Object.keys(this.signals),
             this.name
         );
+    }
+
+    /**
+     * VPLEditorsManager requests info for mission
+     * @param {* string name of the mission } mission
+     * @returns { name: '', editors: [], toolbox: '' }
+     */
+    getDataMission(name) {
+        let mission = this._currVPLDomainElements.getMission(name);
+
+        return {
+            name: mission,
+            editors: mission.editors,
+            toolbox: mission.toolbox
+        };
     }
 
     // TODO: populate the signals has to be received
@@ -63,12 +81,8 @@ class _VPLDomainElementsManager {
         return this._currVPLDomainElements.getToolbox(mission);
     }
 
-    set blocklyDExEditor(blocklyEditor) {
-        this._blocklyDExEditor = blocklyEditor;
-    }
-
     updateToolbox(mission, toolbox) {
-        this._blocklyDExEditor.updateToolbox(mission, toolbox);
+        IDECore.postSignal('update-toolbox-'+mission, toolbox, this.name);
     }
 }
 

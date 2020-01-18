@@ -27,6 +27,10 @@ export const SmartObjectsConditionEvent = {
             ]
         }
     ],
-    // predefined code exists when new mission file will be created
-    code: ``
+    editors: [
+        {
+            name: 'BlocklyEditor',
+            src: ``
+        }
+    ]
 };

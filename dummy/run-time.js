@@ -1,11 +1,11 @@
 
 const modes = ['RELEASE', 'DEBUG'];
 
-export class Runtime {
-    static get modes() {
+export default class Runtime {
+    static getModes() {
         return modes;
     }
-    static get mode () {
+    static getMode () {
         return 'RELEASE';
     }
 }

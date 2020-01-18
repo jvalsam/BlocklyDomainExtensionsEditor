@@ -1,11 +1,13 @@
 import { assert } from './../common/assert';
 import { VPLBlocklyMultiElementHandler } from './vpl-blockly-element';
 import { genPredefinedCategoriesToolbox } from '../common/general-blockly-toolbox';
+import { VPLDomainElementsManager } from './vpl-domain-elements-manager';
 
+//TODO: toolbox could be blockly or other editor
 class VPLToolbox {
-    constructor(items, domainElems, mission) {
+    constructor(items, vplDomainElems, mission) {
         this._mission = mission;
-        this.__domainElems = domainElems;
+        this.__domainElems = vplDomainElems;
         this._categories = [];
         this._blocklyToolbox = {};
 
@@ -307,7 +309,7 @@ class VPLToolbox {
         };
 
         // retrieve domain element instances
-        let domainElement = this.__domainElems.__findVPLElement(item.name);
+        let domainElement = this.__domainElems.getVPLElement(item.name);
         domainElement.vplDomainElemInstanceNames.forEach(
             domainElemInstanceName => {
                 this._currGenDomainElemInstanceId = domainElemInstanceName;
@@ -367,7 +369,7 @@ class VPLToolbox {
             extra: []
         };
 
-        let vplElementHandler = this.__domainElems.__findVPLElement(item.name);
+        let vplElementHandler = this.__domainElems.getVPLElement(item.name);
         let blocklyElems = (this._currGenDomainElemInstanceId === null)
             ? vplElementHandler.blocklyElemNames
             : vplElementHandler.blocklyElemInstanceNames(
@@ -501,20 +503,25 @@ export class VPLMission {
     constructor(
         name,
         items, // [ {name, colour*, elements*, path}, ... ]
-        domainElems,
-        domainController
+        editors,
+        vplDomainElems
     ) {
         this._name = name;
-        this._toolbox = new VPLToolbox(items, domainElems, this);
-        this._domainController = domainController;
+        this._editors = editors;
+        this._toolbox = new VPLToolbox(items, vplDomainElems, this);
     }
 
     get name() {
         return this._name;
     }
 
+    //TODO: toolbox could be blockly or other editor
     get toolbox() {
         return this._toolbox.blocklyToolbox;
+    }
+
+    get editors() {
+        return this._editors;
     }
 
     loadToolbox(wsp) {
@@ -527,10 +534,10 @@ export class VPLMission {
 
     // callback notifications for element actions...
     onCreateElement(element) {
-        // regenerate the toolbox
+        // regenerate the toolbox, TODO general for the editor...
         this._toolbox.generateBlocklyToolbox();
 
-        this._domainController.updateToolbox(
+        VPLDomainElementsManager.updateToolbox(
             this._name,
             this._toolbox.blocklyToolbox
         );
