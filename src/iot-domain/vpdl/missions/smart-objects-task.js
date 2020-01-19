@@ -11,6 +11,19 @@ export const SmartObjectsTask =
             }
         },
         {
+            name: 'Tasks',
+            type: 'Category',
+            colour: '236',
+            elements: [
+                {
+                    name: {
+                        domainElem: 'smart-objects-task',
+                        item: 'run_task'
+                    }
+                }
+            ]
+        },
+        {
             name: 'Smart Objects',
             type: 'Category',
             colour: '210',

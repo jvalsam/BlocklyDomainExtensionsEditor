@@ -1,5 +1,5 @@
 export const SmartObjectsTask = {
-    name: 'SmartObjectsTask',
+    name: 'smart-objects-task',
     blocklyElems: [
         {
             name: 'run_task',

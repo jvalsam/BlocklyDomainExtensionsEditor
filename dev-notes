@@ -96,8 +96,6 @@ in case of one element -> ok one callback is called to notify
 
 - step 2: fix generators of the categories and the elements
 
-- step 3: domain elements controller -> define signals
-
 -> define category of tasks in toolbox of so tasks to view it
    and debug the generator
 -> fix button to add new SO domain to debug
