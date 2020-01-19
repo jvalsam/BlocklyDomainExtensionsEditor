@@ -259,6 +259,7 @@ class VPLToolbox {
         this._findCategory(item.path)
             .push({
                 type: item.type,
+                colour: item.colour,
                 category: item.category,
                 choices: (typeof item.elements === 'string')
                     ? item.elements
@@ -338,7 +339,11 @@ class VPLToolbox {
             extra: []
         };
 
-        toolbox.gen += ' name="' + item.name + '">';
+        toolbox.gen += ' name="' + item.name + '"';
+        toolbox.gen += 'colour' in item
+            ? ' colour="' + item.colour + '"'
+            : '';
+        toolbox.gen += '>';
 
         let elemsToolbox = this._genCategoryElements(item.elements);
         toolbox.gen += elemsToolbox.gen;

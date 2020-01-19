@@ -11,6 +11,10 @@ export const SmartObjectsTask =
             }
         },
         {
+            type: 'Separator',
+            gap: '200'
+        },
+        {
             name: 'Tasks',
             type: 'Category',
             colour: '236',
@@ -19,7 +23,8 @@ export const SmartObjectsTask =
                     name: {
                         domainElem: 'smart-objects-task',
                         item: 'run_task'
-                    }
+                    },
+                    type: 'Element'
                 }
             ]
         },

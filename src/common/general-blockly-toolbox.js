@@ -624,13 +624,13 @@ export function genPredefinedCategoriesToolbox(general) {
     }
 
     if (general.category) {
-        toolbox.gen = '<category name="' + general.category.name + '"' +
-                (general.category.expanded
-                    ? ' expanded="' + general.category.expanded + '"'
-                    : ''
-                ) + '>' +
-                toolbox.gen +
-            '</category>';
+        let categ = general.category;
+        
+        let gen = '<category name="' + categ.name + '"';
+        if ('colour' in categ) gen += ' colour="' + categ.colour + '"';
+        if ('expanded' in categ) gen += ' expanded="' + categ.expanded + '"';
+
+        toolbox.gen = gen + '>' + toolbox.gen + '</category>';
     }
 
     return toolbox;

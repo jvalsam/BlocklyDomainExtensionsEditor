@@ -93,6 +93,10 @@ in case of one element -> ok one callback is called to notify
 
   bookFunc in the elements means addMission means -> call parent to 
 
+> a. look for all missions refer on domain element
+  b. notify for updated toolboxes missions generation
+  c. notify blockly and the editors for update
+
 
 - step 2: fix generators of the categories and the elements
 
