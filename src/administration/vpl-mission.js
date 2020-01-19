@@ -544,7 +544,8 @@ export class VPLMission {
 
         VPLDomainElementsManager.updateToolbox(
             this._name,
-            this._toolbox.blocklyToolbox
+            this._toolbox.blocklyToolbox,
+            this._editors
         );
     }
 

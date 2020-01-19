@@ -81,8 +81,18 @@ class _VPLDomainElementsManager {
         return this._currVPLDomainElements.getToolbox(mission);
     }
 
-    updateToolbox(mission, toolbox) {
-        IDECore.postSignal('update-toolbox-'+mission, toolbox, this.name);
+    updateToolbox(mission, toolbox, editors) {
+        //function request of the editor handles the mission
+        editors.forEach(editor => IDECore
+            .functionRequest(
+                editor.name,
+                'onMissionUpdate',
+                {
+                    name: mission,
+                    toolbox: toolbox
+                },
+                'VPLDomainElementsManager'
+            ));
     }
 }
 

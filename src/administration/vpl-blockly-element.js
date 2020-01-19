@@ -273,7 +273,7 @@ export class VPLDomainElementHandler {
         }
         
         for (let mission in this._missionsRef) {
-            this._missionsRef[mission].onLoadElement
+            this._missionsRef[mission].onCreate(this._items[data.id]);
         }
     }
 

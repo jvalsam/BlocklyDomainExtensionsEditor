@@ -41,6 +41,10 @@ class _IDECore {
         });
     }
 
+    functionRequest(compName, funcName, data, compNameReq) {
+        return this._components[compName][funcName](data);
+    }
+
     addComponent(component) {
         this._components[component.name] = component;
     }

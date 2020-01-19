@@ -128,6 +128,29 @@ class _BlocklyDExEditor {
         // listened
     }
 
+    // functions are required to be provided by the vpl editors 
+    // for the domain elements
+    /**
+     * 
+     * @param {*} mission 
+     */
+    onMissionUpdate(mission) {
+        var toolboxXml = Blockly.Xml.textToDom(mission.toolbox.gen);
+
+        this._wsps[mission.name].forEach(data =>
+            data.wsp.updateToolbox(toolboxXml));
+
+        //TODO: handle the toolbox extra
+        let items = document.getElementsByClassName('blocklyTreeRow');
+        items[Object.keys(items)
+                .filter(key => items[key].innerText === 'Built-in')]
+            .nextSibling.style.marginLeft = '20px';
+
+        items = document.getElementsByClassName('blocklyTreeSeparator');
+        Object.keys(items)
+            .forEach(i => items[i].style.marginTop = '20px');
+    }
+
     onClose() {
         // destroy Blockly Blocks of the domain
     }
