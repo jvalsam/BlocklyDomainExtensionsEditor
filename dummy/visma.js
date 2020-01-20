@@ -3,6 +3,7 @@ import { IDECore } from './ide-core';
 var SO_AirCondition = {
     "id": "so-air-condition-1",
     "name" : "Air-Condition",
+    "colour": 236,
     "object" : {
         "properties" : {
             "AirConditionTemperature" : 0,
@@ -45,6 +46,7 @@ var SO_AirCondition = {
             }
         }
     },
+    "helpUrl": "Air-Conditioning device",
     "user" : "5ac8e06dac135912cc2314ac",
     "image" : "https://img.icons8.com/ios-filled/50/000000/air-conditioner.png"
 };
@@ -54,7 +56,12 @@ var SO_aircond = {
     "name" : "Air-Condition",
     "user" : "5ac8e06dac135912cc2314ac",
     "image" : "https://img.icons8.com/ios-filled/50/000000/air-conditioner.png",
-    "functionName": "Temperature",
+    "properties": [
+        "Temperature",
+        "State",
+        "Fan",
+        "Swings"
+    ],
     "colour": 236,
     "helpUrl": "Air-Conditioning device"
 };
@@ -80,7 +87,7 @@ class _ViSmaOE {
     createSmartObject(name, img) {
         IDECore.postSignal(
             'create-smart-object',
-            SO_aircond,
+            SO_AirCondition,
             this.name
         );
     }

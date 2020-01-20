@@ -137,29 +137,19 @@ export class VPLBlocklyElementHandler extends VPLElementHandler {
 }
 
 export class VPLBlocklyMultiElementHandler extends VPLBlocklyElementHandler {
-    constructor(
-        ctor /* {block, codeGen, debGen =codeGen} */,
-        name,
-        keyElems,
-        parent =null
-    ) {
-        super(ctor, name, parent);
 
-        this._keyElems = keyElems;
+    _blockDef(data) {
+        return (typeof this._ctor.multiBlocksDef === 'object') ?
+            this._ctor.multiBlocksDef.func(data):
+            this._ctor.multiBlocksDef(data);
     }
 
-    _blockDef(elem, data) {
-        return (typeof this._ctor.blockDef === 'object') ?
-            this._ctor.blockDef.func(elem, data):
-            this._ctor.blockDef;
-    }
-
-    _codeGen(elem, data) {
-        let modeGen = this._ctor[codeGenMethodName()];
+    _codeGen(data) {
+        let modeGen = this._ctor[codeGenName()];
 
         return (typeof modeGen === 'object') ?
-            modeGen.func(elem, data) :
-            modeGen;
+            modeGen.func(data) :
+            modeGen(data);
     }
 
     onCreate(data) {
@@ -167,17 +157,21 @@ export class VPLBlocklyMultiElementHandler extends VPLBlocklyElementHandler {
         let elemName = super._elemName(data);
         this._blocklyElems[elemName] = [];
         
-        data[this._keyElems].forEach((elem) => {
+        let blocks = this._blockDef(data);
+        let codes = this._codeGen(data);
+
+        for (let elem in blocks) {
             let itemName = elemName + elem;
-            
-            Blockly.Blocks[elemName] = this._blockDef(itemName, data);
-            Blockly.JavaScript[elemName] = this._codeGen(itemName, data);
+
+            Blockly.Blocks[itemName] = blocks[elem];
+            Blockly.JavaScript[itemName] = codes[elem];
+
             let obj = {};
             obj[itemName] = {}
             this._blocklyElems[elemName].push(obj);
 
-            elems.push(elemName);
-        });
+            elems.push(itemName);
+        }
         
         return elems;
     }
@@ -221,24 +215,30 @@ export class VPLDomainElementHandler {
 
         blocklyElems.forEach((blocklyElem) => {
             let ctor = {
-                blockDef: blocklyElem.blockDef,
                 codeGen: blocklyElem.codeGen,
                 debGen: blocklyElem.debGen
             };
 
-            this._vplBlocklyElems[blocklyElem.name] =
-                ('keyElems' in blocklyElem)
-                    ? new VPLBlocklyMultiElementHandler(
-                        ctor,
-                        blocklyElem.name,
-                        blockly.keyElems,
-                        this
-                      )
-                    : new VPLBlocklyElementHandler(
+            if ('multiBlocksDef' in blocklyElem) {
+                ctor.multiBlocksDef = blocklyElem.multiBlocksDef;
+                
+                this._vplBlocklyElems[blocklyElem.name] =
+                    new VPLBlocklyMultiElementHandler(
                         ctor,
                         blocklyElem.name,
                         this
-                      );
+                    );
+            }
+            else {
+                ctor.blockDef = blocklyElem.blockDef;
+
+                this._vplBlocklyElems[blocklyElem.name] =
+                    new VPLBlocklyElementHandler(
+                        ctor,
+                        blocklyElem.name,
+                        this
+                    );
+            }
         });
 
         this._signals = {};
