@@ -24,6 +24,12 @@ document.addEventListener("DOMContentLoaded", function () {
         'create-project-element',
         {
             id: 'so-task-1',
+            taskName: 'Morning tasks',
+            elem: {
+                labelStyle: 'task-label',
+                colour: '60',
+                tooltip: 'It runs the blocks are included in this task.'
+            },
             mission: 'smart-objects-task'
         },
         'ProjectWSPManager'

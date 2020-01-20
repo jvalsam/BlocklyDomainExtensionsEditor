@@ -1,3 +1,5 @@
+import * as Blockly from 'blockly';
+
 export const SmartObjectsTask = {
     name: 'smart-objects-task',
     blocklyElems: [
@@ -8,7 +10,7 @@ export const SmartObjectsTask = {
                     this.appendDummyInput()
                         .appendField(
                             new Blockly.FieldImage(
-                                data.elem.image,
+                                'https://img.icons8.com/ios-filled/50/000000/playstore.png',
                                 15,
                                 15,
                                 {

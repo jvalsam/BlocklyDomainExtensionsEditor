@@ -1,3 +1,5 @@
+import * as Blockly from 'blockly';
+
 export const SmartObject = {
     name: 'SmartObject',
     blocklyElems: [

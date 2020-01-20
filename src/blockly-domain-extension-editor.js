@@ -52,7 +52,7 @@ class _BlocklyDExEditor {
         items[Object.keys(items)
             .filter(key => items[key].innerText === 'Built-in')]
             .nextSibling.style.marginLeft = '20px';
-        
+
         items = document.getElementsByClassName('blocklyTreeSeparator');
         Object.keys(items)
             .forEach(i => items[i].style.marginTop = '20px');
