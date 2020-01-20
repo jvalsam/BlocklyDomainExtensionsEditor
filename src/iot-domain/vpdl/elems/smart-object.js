@@ -46,6 +46,14 @@ export const SmartObject = {
         //     codeGen: (data) => (function(block) {/* TODO */})
         // }
     ],
+    // reteElements: [
+    //     {
+    //         nodeDef: (data) => { /** */ },
+    //         codeGen: (data) => {},
+    //         debugGen: (data) => {}
+    //     }
+
+    // ],
     signals: [
         {
             action: 'onCreate',
