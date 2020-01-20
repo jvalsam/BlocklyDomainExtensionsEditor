@@ -311,19 +311,30 @@ class VPLToolbox {
 
         // retrieve domain element instances
         let domainElement = this.__domainElems.getVPLElement(item.name);
-        domainElement.vplDomainElemInstanceNames.forEach(
-            domainElemInstanceName => {
-                this._currGenDomainElemInstanceId = domainElemInstanceName;
+        domainElement.vplDomainElemInstanceIds
+            .forEach(id => {
+                this._currGenDomainElemInstanceId = id;
 
                 toolbox.gen += '<category'
                 // TODO: user's choice of colour in domain element could be 
                 // the category of the colour...
-                toolbox.gen += ' name="' + domainElemInstanceName + '">';
+                toolbox.gen += ' name="'
+                            + domainElement.vplDomainElemInstanceName(id)
+                            + '">';
 
                 // all the inner elements
-                let elemsToolbox = this._genCategoryElements(item.elements);
-                toolbox.gen += elemsToolbox.gen;
-                toolbox.extra.push(...elemsToolbox.extra);
+                item.elements.forEach((element) => {
+                    let elem = {...element};
+                    elem.name = {
+                        domainElem: item.name.domainElem,
+                        item: elem.name
+                    };
+
+                    let toolObj = this['_gen' + element.type + 'Toolbox'](elem);
+        
+                    toolbox.gen += toolObj.gen;
+                    toolbox.extra.push(...toolObj.extra);
+                });
 
                 toolbox.gen += '</category>';
             }

@@ -1,8 +1,8 @@
 import { IDECore } from './ide-core';
 
-var SmartObject = {
-    "name" : "AirCondition",
-    "environment" : "dasdsda",
+var SO_AirCondition = {
+    "id": "so-air-condition-1",
+    "name" : "Air-Condition",
     "object" : {
         "properties" : {
             "AirConditionTemperature" : 0,
@@ -46,7 +46,17 @@ var SmartObject = {
         }
     },
     "user" : "5ac8e06dac135912cc2314ac",
-    "image" : "http://147.52.17.129/smart_object_images\\heater.png"
+    "image" : "https://img.icons8.com/ios-filled/50/000000/air-conditioner.png"
+};
+
+var SO_aircond = {
+    "id": "so-air-condition-1",
+    "name" : "Air-Condition",
+    "user" : "5ac8e06dac135912cc2314ac",
+    "image" : "https://img.icons8.com/ios-filled/50/000000/air-conditioner.png",
+    "functionName": "Temperature",
+    "colour": 236,
+    "helpUrl": "Air-Conditioning device"
 };
 
 var SmartEnvironment = {};
@@ -68,7 +78,11 @@ class _ViSmaOE {
     }
 
     createSmartObject(name, img) {
-        IDECore.postSignal('create-smart-object', SmartObject, this.name);
+        IDECore.postSignal(
+            'create-smart-object',
+            SO_aircond,
+            this.name
+        );
     }
 
     createSmartEnvironment() {

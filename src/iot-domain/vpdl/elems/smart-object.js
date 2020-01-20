@@ -13,37 +13,38 @@ export const SmartObject = {
                         "args0": [
                             {
                                 "type": "field_image",
-                                "src": data.device.image,
+                                "src": data.image,
                                 "width": 15,
                                 "height": 15,
                                 "alt": "*"
                             }
                         ],
                         "output": "getter",
-                        "colour": data.colours.getValue || 210,
-                        "tooltip": data.device.LocalName,
+                        "colour": data.colour || 210,
+                        "tooltip": data.name,
                         "helpUrl": data.helpUrl || ''
                     });
                 }
             }),
             codeGen: (data) => (function(block) {
-                var code = 'await SmartObjects["' + data.deviceName + '"]' +
+                var code = 'await SmartObjects["' + data.name + '"]' +
                             '.getValue("' + data.functionName + '");';
                 return [code, Blockly.JavaScript.ORDER_NONE];
             })
             //, debugGen: (data) => open VISMA view UI of the smart
             // object
-        },
-        {
-            name: 'setValue',
-            blockDef: (data) => ({/* TODO*/ }),
-            codeGen: (data) => (function(block) {/* TODO */})
-        },
-        { // block that end-user builds the condition event
-            name: "condition_event_so",
-            blockDef: (data) => ({/* TODO */}),
-            codeGen: (data) => (function(block) {/* TODO */})
         }
+        // ,
+        // {
+        //     name: 'setValue',
+        //     blockDef: (data) => ({/* TODO*/ }),
+        //     codeGen: (data) => (function(block) {/* TODO */})
+        // },
+        // { // block that end-user builds the condition event
+        //     name: "condition_event_so",
+        //     blockDef: (data) => ({/* TODO */}),
+        //     codeGen: (data) => (function(block) {/* TODO */})
+        // }
     ],
     signals: [
         {

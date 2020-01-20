@@ -262,14 +262,17 @@ export class VPLDomainElementHandler {
 
     onCreate(data) {
         this._items[data.id] = {
-            _domainElementData: data
+            name: data.name || data.id,
+            _domainElementData: data,
+            elements: {}
         };
 
         for(let blocklyElem in this._vplBlocklyElems) {
             let createdItems = this._vplBlocklyElems[blocklyElem]
                     .onCreate(data);
             
-            this._items[data.id][blocklyElem] = createdItems;
+            //TODO: check to categorize in separate 
+            this._items[data.id].elements[blocklyElem] = createdItems;
         }
         
         for (let mission in this._missionsRef) {
@@ -278,7 +281,7 @@ export class VPLDomainElementHandler {
     }
 
     getBlocklyElemInstanceNames(instanceId, elemName) {
-        return this._items[instanceId][elemName];
+        return this._items[instanceId].elements[elemName];
     }
 
     onEdit(data) {
@@ -330,8 +333,12 @@ export class VPLDomainElementHandler {
         return this._vplBlocklyElems;
     }
 
-    get vplDomainElemInstanceNames() {
+    get vplDomainElemInstanceIds() {
         return Object.keys(this._items);
+    }
+
+    vplDomainElemInstanceName(id) {
+        return this._items[id].name;
     }
 
     _initMissionRef(mission) {
