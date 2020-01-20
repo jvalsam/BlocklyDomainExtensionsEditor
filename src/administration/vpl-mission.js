@@ -381,17 +381,22 @@ class VPLToolbox {
                 this._currGenDomainElemInstanceId
               );
         
-        // multi element handler
-        if (typeof blocklyElems === 'object') {
-            for (key in blocklyElems) {
-                let blocks = this._genBlocksToolbox(blocklyElems[key]);
+        // multi element
+        if (Array.isArray(blocklyElems)) {
+            for (let key in blocklyElems) {
+                let elems = blocklyElems[key];
+
+                // multi | single elem handler
+                let blocks = (typeof elems === 'string')
+                    ? this._genBlockToolbox(elems)
+                    : this._genBlocksToolbox(elems);
                 
                 toolbox.gen += blocks.gen;
                 toolbox.extra.push(...blocks.extra);
             }
         }
         else {
-            let blocks = this._genBlocksToolbox(blocklyElems[key]);
+            let blocks = this._genBlockToolbox(blocklyElems);
             
             toolbox.gen += blocks.gen;
             toolbox.extra.push(...blocks.extra);
@@ -406,7 +411,7 @@ class VPLToolbox {
             extra: []
         };
 
-        toolbox.gen = ' type="' + item.name + '">';
+        toolbox.gen += ' type="' + (item.name || item) + '">';
         // inject values in the block if they are defined by the domain author
         toolbox.gen += item.values || '';
         toolbox.gen += '</block>';

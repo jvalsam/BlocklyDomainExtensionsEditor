@@ -81,7 +81,7 @@ export class VPLBlocklyElementHandler extends VPLElementHandler {
     _blockDef(data) {
         return (typeof this._ctor.blockDef === 'object')
             ? this._ctor.blockDef.func(data)
-            : this._ctor.blockDef;
+            : this._ctor.blockDef(data);
     }
 
     _codeGen(data) {
@@ -339,9 +339,9 @@ export class VPLDomainElementHandler {
             name: mission.name,
             refElems: [],
             refDomainElem: false,
-            onCreate: mission.onCreateElement,
-            onDelete: mission.onDeleteElement,
-            onRename: mission.onRenameElement
+            onCreate: (data) => mission.onCreateElement(data),
+            onDelete: (data) => mission.onDeleteElement(data),
+            onRename: (data) => mission.onRenameElement(data)
         };
     }
 
