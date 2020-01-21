@@ -549,13 +549,7 @@ export class VPLMission {
 
     }
 
-    updateToolbox() {
-
-    }
-
-    // callback notifications for element actions...
-    onCreateElement(element) {
-        // regenerate the toolbox, TODO general for the editor...
+    onUpdateToolbox() {
         this._toolbox.generateBlocklyToolbox();
 
         VPLDomainElementsManager.updateToolbox(
@@ -565,12 +559,29 @@ export class VPLMission {
         );
     }
 
-    onDeleteElement(element) {
+    // callback notifications for element actions...
+    onCreateElement(element) {
+        // TODO general for the editor...
+        this.onUpdateToolbox();
+    }
 
+    onDeleteElement(elements) {
+        this.onUpdateToolbox();
+
+        VPLDomainElementsManager.deleteVPLElements(
+            elements,
+            this._editors
+        );
     }
 
     onRenameElement(element) {
+        this._toolbox.generateBlocklyToolbox();
 
+        VPLDomainElementsManager.updateToolbox(
+            this._name,
+            this._toolbox.blocklyToolbox,
+            this._editors
+        );
     }
 }
 

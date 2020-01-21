@@ -151,6 +151,10 @@ class _BlocklyDExEditor {
             .forEach(i => items[i].style.marginTop = '20px');
     }
 
+    onDeleteVPLElements(elemNames) {
+        console.warn('delete developed elements of blockly not implemented yet');
+    }
+
     onClose() {
         // destroy Blockly Blocks of the domain
     }

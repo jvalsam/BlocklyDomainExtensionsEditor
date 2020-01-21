@@ -102,11 +102,17 @@ export class VPLBlocklyElementHandler extends VPLElementHandler {
         return [elemName];
     }
 
+    _deleteBlocklyElem(name) {
+        delete this._blocklyElems[name];
+    }
+
     onDelete(elems) {
         elems.forEach((elemName) => {
                 //TODO: search references of the blocks and delete them??
                 Blockly.Blocks[elemName] = null;
                 Blockly.JavaScript[elemName] = null;
+
+                this._deleteBlocklyElem(elemName);
             }
         );
     }
@@ -150,10 +156,13 @@ export class VPLBlocklyMultiElementHandler extends VPLBlocklyElementHandler {
             modeGen(data);
     }
 
+    _deleteBlocklyElem(name) {
+        delete this._blocklyElems[name];
+    }
+
     onCreate(data) {
         let elems = [];
         let elemName = super._elemName(data);
-        this._blocklyElems[elemName] = [];
         
         let blocks = this._blockDef(data);
         let codes = this._codeGen(data);
@@ -164,10 +173,7 @@ export class VPLBlocklyMultiElementHandler extends VPLBlocklyElementHandler {
             Blockly.Blocks[itemName] = blocks[elem];
             Blockly.JavaScript[itemName] = codes[elem];
 
-            let obj = {};
-            obj[itemName] = {}
-            this._blocklyElems[elemName].push(obj);
-
+            this._blocklyElems[itemName] = {};
             elems.push(itemName);
         }
         
@@ -176,11 +182,12 @@ export class VPLBlocklyMultiElementHandler extends VPLBlocklyElementHandler {
 
     onDelete(elems) {
         elems.forEach((elemName) => {
-                //TODO: search references of the blocks and delete them??
-                Blockly.Blocks[elemName] = null;
-                Blockly.JavaScript[elemName] = null;
-            }
-        );
+            //TODO: search references of the blocks and delete them??
+            Blockly.Blocks[elemName] = null;
+            Blockly.JavaScript[elemName] = null;
+
+            this._deleteBlocklyElem(elemName);
+        });
     }
 
     onEdit(data) {
@@ -287,19 +294,24 @@ export class VPLDomainElementHandler {
     onDelete(data) {
         let delItem = this._items[data.id];
 
-        for(let blocklyElem in this._vplBlocklyElems) {
-                this._vplBlocklyElems[blocklyElem].onDelete(
-                    delItem.elements[blocklyElem]
-                );
+        let delBlockElems = [];
+
+        for (let blocklyElem in this._vplBlocklyElems) {
+                let bElems = delItem.elements[blocklyElem];
+
+                this._vplBlocklyElems[blocklyElem].onDelete(bElems);
+
+                delBlockElems = [...delBlockElems, ...bElems];
         }
 
-        for (let mission in this._missionsRef) {
-            this._missionsRef[mission].onDelete(delItem);
-        }
-
-        for(let blocklyElem in this._vplBlocklyElems) {
+        for (let blocklyElem in this._vplBlocklyElems) {
             delItem.elements[blocklyElem].length = 0;
             delete delItem.elements[blocklyElem];
+        }
+        delete this._items[data.id];
+
+        for (let mission in this._missionsRef) {
+            this._missionsRef[mission].onDelete(delBlockElems);
         }
     }
 

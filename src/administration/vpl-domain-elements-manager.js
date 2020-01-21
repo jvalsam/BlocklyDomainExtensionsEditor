@@ -91,7 +91,17 @@ class _VPLDomainElementsManager {
                     name: mission,
                     toolbox: toolbox
                 },
-                'VPLDomainElementsManager'
+                this.name
+            ));
+    }
+
+    deleteVPLElements(elements, editors) {
+        editors.forEach(editor => IDECore
+            .functionRequest(
+                editor.name,
+                'onDeleteVPLElements',
+                elements,
+                this.name
             ));
     }
 }
