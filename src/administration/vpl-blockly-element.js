@@ -102,15 +102,13 @@ export class VPLBlocklyElementHandler extends VPLElementHandler {
         return [elemName];
     }
 
-    onDelete(data) {
-        let elemName = this._elemName(data);
-
-        // TODO: notify all refer in this item...
-        this._blocklyElems[elemName];
-
-        // undefine block of the Blockly Editor
-        Blockly.Blocks[elemName] = null;
-        Blockly.JavaScript[elemName] = null;
+    onDelete(elems) {
+        elems.forEach((elemName) => {
+                //TODO: search references of the blocks and delete them??
+                Blockly.Blocks[elemName] = null;
+                Blockly.JavaScript[elemName] = null;
+            }
+        );
     }
 
     onEdit(data) {
@@ -176,11 +174,9 @@ export class VPLBlocklyMultiElementHandler extends VPLBlocklyElementHandler {
         return elems;
     }
 
-    onDelete(data) {
-        data[this._keyElems].forEach(
-            (element) => {
-                let elemName = data.id + '_' + this._name + '_' + element;
-                // TODO: search references of the blocks and delete them??
+    onDelete(elems) {
+        elems.forEach((elemName) => {
+                //TODO: search references of the blocks and delete them??
                 Blockly.Blocks[elemName] = null;
                 Blockly.JavaScript[elemName] = null;
             }
@@ -289,24 +285,22 @@ export class VPLDomainElementHandler {
     }
 
     onDelete(data) {
-        Object.keys(this._vplBlocklyElems)
-            .forEach((blocklyElem) => {
-                this._vplBlocklyElems[blocklyElem].onDelete();
+        let delItem = this._items[data.id];
 
-                // free items data map
-                this._items[data.id][blocklyElem].length = 0;
-                delete this._items[data.id][blocklyElem];
-            });
-        // TODO: dialog box ask for deletion
-        // TODO: add functionality book the vplblocks are designed by the 
-        // end-user
+        for(let blocklyElem in this._vplBlocklyElems) {
+                this._vplBlocklyElems[blocklyElem].onDelete(
+                    delItem.elements[blocklyElem]
+                );
+        }
 
-        this._vplBlocklyElems.forEach((blocklyElem) => {
-            blocklyElem.onUnload(data);
-            
-        });
+        for (let mission in this._missionsRef) {
+            this._missionsRef[mission].onDelete(delItem);
+        }
 
-        //TODO: notify missions...
+        for(let blocklyElem in this._vplBlocklyElems) {
+            delItem.elements[blocklyElem].length = 0;
+            delete delItem.elements[blocklyElem];
+        }
     }
 
     onRuntimeChangeMode() {

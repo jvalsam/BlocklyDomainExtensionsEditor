@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function () {
         'ProjectWSPManager'
     );
 
-    document.getElementById('btnAddSO').onclick = function (evt) {
+    document.getElementById('btnAddSOAirCondition').onclick = function (evt) {
         ViSmaOE.createSmartObject('AirCondition', '');
     };
 
@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", function () {
         );
     };
 
-    document.getElementById('btnAddMorningTask').onclick = function (evt) {
+    document.getElementById('btnAddLeavingTask').onclick = function (evt) {
         IDECore.postSignal(
             'create-project-element',
             {
@@ -72,5 +72,43 @@ document.addEventListener("DOMContentLoaded", function () {
             },
             'ProjectWSPManager'
         );
+    };
+
+    document.getElementById("btnRemoveLeavingTask").onclick = function (evt) {
+        IDECore.postSignal(
+            'delete-project-element',
+            {
+                id: 'so-task-3',
+                taskName: 'Leaving Home',
+                elem: {
+                    labelStyle: 'task-label',
+                    colour: '60',
+                    tooltip: 'It runs the blocks are included in this task.'
+                },
+                mission: 'smart-objects-task'
+            },
+            'ProjectWSPManager'
+        );
+    };
+
+    document.getElementById("btnRemoveHomeTask").onclick = function (evt) {
+        IDECore.postSignal(
+            'delete-project-element',
+            {
+                id: 'so-task-2',
+                taskName: 'Tidying Home',
+                elem: {
+                    labelStyle: 'task-label',
+                    colour: '60',
+                    tooltip: 'It runs the blocks are included in this task.'
+                },
+                mission: 'smart-objects-task'
+            },
+            'ProjectWSPManager'
+        );
+    };
+
+    document.getElementById("btnRemoveSOAirCondition").onclick = function (evt) {
+        ViSmaOE.deleteSmartObject('AirCondition', '');
     };
 });

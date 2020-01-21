@@ -6,7 +6,7 @@ var SO_AirCondition = {
     "colour": 236,
     "object" : {
         "properties" : {
-            "AirConditionTemperature" : 0,
+            "DeviceTemperature" : 0,
             "EnvironmentTemperature" : 0,
             "Turn" : "off"
         },
@@ -26,7 +26,7 @@ var SO_AirCondition = {
         "active" : false,
         "_eventsCount" : 2,
         "meta_properties" : {
-            "AirConditionTemperature" : {
+            "DeviceTemperature" : {
                 "type" : "number",
                 "readonly" : false,
                 "possible_values" : []
@@ -97,7 +97,11 @@ class _ViSmaOE {
     }
 
     deleteSmartObject() {
-        IDECore.postSignal('delete-smart-object', SmartObject, this.name);
+        IDECore.postSignal(
+            'delete-smart-object',
+            SO_AirCondition,
+            this.name
+        );
     }
 
     deleteSmartEnvironment() {

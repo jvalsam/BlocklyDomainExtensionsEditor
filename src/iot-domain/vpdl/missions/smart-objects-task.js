@@ -34,12 +34,34 @@ export const SmartObjectsTask =
             colour: '210',
             elements: [
                 {
-                    name: {
-                        domainElem: 'SmartObject'
-                    },
+                    name: 'Get Values',
                     type: 'Category',
-                    elements: 'ALL' // Array of objects to select
+                    colour: '60',
+                    elements: [
+                        {
+                            name: {
+                                domainElem: 'SmartObject'
+                            },
+                            type: 'Category',
+                            elements: 'ALL' // Array of objects to select
+                        }
+                    ]
                 }
+                // ,
+                // {
+                //     name: 'Set Values',
+                //     type: 'Category',
+                //     colour: '120',
+                //     elements: [
+                //         {
+                //             name: {
+                //                 domainElem: 'SmartObject'
+                //             },
+                //             type: 'Category',
+                //             elements: 'ALL' // Array of objects to select
+                //         }
+                //     ]
+                // }
             ]
         }
     ],
