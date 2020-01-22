@@ -111,4 +111,42 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("btnRemoveSOAirCondition").onclick = function (evt) {
         ViSmaOE.deleteSmartObject('AirCondition', '');
     };
+
+    document.getElementById("btnUpdateLeavingTask").onclick = function (evt) {
+        IDECore.postSignal(
+            'update-project-element',
+            {
+                id: 'so-task-3',
+                taskName: 'Leaving Home',
+                elem: {
+                    labelStyle: 'task-label',
+                    colour: '60',
+                    tooltip: 'It runs the blocks are included in this task.'
+                },
+                mission: 'smart-objects-task'
+            },
+            'ProjectWSPManager'
+        );
+    };
+
+    document.getElementById("btnUpdateHomeTask").onclick = function (evt) {
+        IDECore.postSignal(
+            'update-project-element',
+            {
+                id: 'so-task-2',
+                taskName: 'Tidying Home',
+                elem: {
+                    labelStyle: 'task-label',
+                    colour: '60',
+                    tooltip: 'It runs the blocks are included in this task.'
+                },
+                mission: 'smart-objects-task'
+            },
+            'ProjectWSPManager'
+        );
+    };
+
+    document.getElementById("btnUpdateSOAirCondition").onclick = function (evt) {
+        ViSmaOE.renameSmartObject('AirCondition', '');
+    };
 });

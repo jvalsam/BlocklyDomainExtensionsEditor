@@ -51,7 +51,7 @@ export const SmartObjectsTask = {
             mission: 'smart-objects-task'
         },
         {
-            action: 'onRename',
+            action: 'onEdit',
             name: 'rename-project-element',
             mission: 'smart-objects-task'
         }

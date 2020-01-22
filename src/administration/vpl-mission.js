@@ -575,13 +575,7 @@ export class VPLMission {
     }
 
     onRenameElement(element) {
-        this._toolbox.generateBlocklyToolbox();
-
-        VPLDomainElementsManager.updateToolbox(
-            this._name,
-            this._toolbox.blocklyToolbox,
-            this._editors
-        );
+        this.onUpdateToolbox();
     }
 }
 

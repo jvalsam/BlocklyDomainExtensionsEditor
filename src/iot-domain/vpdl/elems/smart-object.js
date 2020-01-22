@@ -168,7 +168,7 @@ export const SmartObject = {
             name: 'delete-smart-object'
         },
         {
-            action: 'onRename',
+            action: 'onEdit',
             name: 'rename-smart-object'
         }
     ]

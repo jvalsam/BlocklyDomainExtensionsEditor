@@ -93,7 +93,11 @@ class _ViSmaOE {
     }
 
     createSmartEnvironment() {
-        IDECore.postSignal('create-smart-environment', SmartEnvironment, this.name);
+        IDECore.postSignal(
+            'create-smart-environment',
+            SmartEnvironment,
+            this.name
+        );
     }
 
     deleteSmartObject() {
@@ -105,23 +109,44 @@ class _ViSmaOE {
     }
 
     deleteSmartEnvironment() {
-        IDECore.postSignal('delete-smart-environment', SmartEnvironment, this.name);
+        IDECore.postSignal(
+            'delete-smart-environment',
+            SmartEnvironment,
+            this.name
+        );
     }
 
     renameSmartObject() {
-        IDECore.postSignal('rename-smart-object', SmartObject, this.name);
+        SO_AirCondition.name = 'air conditioning';
+        IDECore.postSignal(
+            'rename-smart-object',
+            SO_AirCondition,
+            this.name
+        );
     }
 
     renameSmartEnvironment() {
-        IDECore.postSignal('rename-smart-environment', SmartEnvironment, this.name);
+        IDECore.postSignal(
+            'rename-smart-environment',
+            SmartEnvironment,
+            this.name
+        );
     }
 
     editSmartObject() {
-        IDECore.postSignal('edit-smart-object', SmartObject, this.name);
+        IDECore.postSignal(
+            'edit-smart-object',
+            SmartObject,
+            this.name
+        );
     }
 
     editSmartEnvironment() {
-        IDECore.postSignal('edit-smart-environment', SmartEnvironment, this.name);
+        IDECore.postSignal(
+            'edit-smart-environment',
+            SmartEnvironment,
+            this.name
+        );
     }
 }
 export const ViSmaOE = new _ViSmaOE();

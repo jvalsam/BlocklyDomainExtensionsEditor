@@ -13,7 +13,7 @@ export const SmartEnvironment = {
             name: 'delete-smart-environment'
         },
         {
-            action: 'onRename',
+            action: 'onEdit',
             name: 'rename-smart-environment'
         }
     ]
