@@ -574,7 +574,7 @@ export class VPLMission {
         );
     }
 
-    onRenameElement(element) {
+    onEditElement(element) {
         this.onUpdateToolbox();
     }
 }

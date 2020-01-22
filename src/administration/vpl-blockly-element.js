@@ -118,7 +118,10 @@ export class VPLBlocklyElementHandler extends VPLElementHandler {
     }
 
     onEdit(data) {
+        let elemName = this._elemName(data);
 
+        Blockly.Blocks[elemName] = this._blockDef(data);
+        Blockly.JavaScript[elemName] = this._codeGen(data);
     }
 
     onChangeRuntimeMode(data) {
@@ -191,7 +194,17 @@ export class VPLBlocklyMultiElementHandler extends VPLBlocklyElementHandler {
     }
 
     onEdit(data) {
+        let elemName = super._elemName(data);
 
+        let blocks = this._blockDef(data);
+        let codes = this._codeGen(data);
+
+        for (let elem in blocks) {
+            let itemName = elemName + elem;
+
+            Blockly.Blocks[itemName] = blocks[elem];
+            Blockly.JavaScript[itemName] = codes[elem];
+        }
     }
 
     get blocklyElemNames() {
@@ -266,7 +279,7 @@ export class VPLDomainElementHandler {
     onCreate(data) {
         this._items[data.id] = {
             name: data.name || data.id,
-            _domainElementData: data,
+            _domainElementData: {...data},
             elements: {}
         };
 
@@ -288,7 +301,16 @@ export class VPLDomainElementHandler {
     }
 
     onEdit(data) {
+        this._items[data.id].name = data.name || data.id;
+        this._items[data.id]._domainElementData = {...data};
 
+        for (let blocklyElem in this._vplBlocklyElems) {
+            this._vplBlocklyElems[blocklyElem].onEdit(data);
+        }
+
+        for (let mission in this._missionsRef) {
+            this._missionsRef[mission].onEdit(this._items[data.id]);
+        }
     }
 
     onDelete(data) {
@@ -354,7 +376,7 @@ export class VPLDomainElementHandler {
             refDomainElem: false,
             onCreate: (data) => mission.onCreateElement(data),
             onDelete: (data) => mission.onDeleteElement(data),
-            onRename: (data) => mission.onRenameElement(data)
+            onEdit: (data) => mission.onEditElement(data)
         };
     }
 
