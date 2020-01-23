@@ -134,33 +134,37 @@ class _BlocklyDExEditor {
      * 
      * @param {*} mission 
      */
-    onMissionUpdate(missions) {
-        missions.forEach(mission => {
-            let toolboxXml = Blockly.Xml.textToDom(mission.toolbox.gen);
+    onMissionUpdate(mission) {
+        let toolboxXml = Blockly.Xml.textToDom(mission.toolbox.gen);
 
-            this._wsps[mission.name].forEach(data =>
-                data.wsp.updateToolbox(toolboxXml));
+        this._wsps[mission.name].forEach(data =>
+            data.wsp.updateToolbox(toolboxXml));
 
-            //TODO: handle the toolbox extra
-            let items = document.getElementsByClassName('blocklyTreeRow');
-            items[Object.keys(items)
-                    .filter(key => items[key].innerText === 'Built-in')]
-                .nextSibling.style.marginLeft = '20px';
+        //TODO: handle the toolbox extra
+        let items = document.getElementsByClassName('blocklyTreeRow');
+        items[Object.keys(items)
+                .filter(key => items[key].innerText === 'Built-in')]
+            .nextSibling.style.marginLeft = '20px';
 
-            items = document.getElementsByClassName('blocklyTreeSeparator');
-            Object.keys(items)
-                .forEach(i => items[i].style.marginTop = '20px');
-        });
+        items = document.getElementsByClassName('blocklyTreeSeparator');
+        Object.keys(items)
+            .forEach(i => items[i].style.marginTop = '20px');
     }
 
-    onDeleteVPLElements(missions, elemNames) {
+    onDeleteVPLElements(data) {
         console.warn('delete developed elements of blockly not implemented yet');
-        missions.forEach(mission => {
-                this._wsps[mission.name].forEach(data => {
-                    let allBlocks = data.wsp.getAllBlocks();
-                });
+        
+        this._wsps[data.mission].forEach(wspData => {
+            let allBlocks = wspData.wsp.getAllBlocks();
+            data.elements.forEach(element => {
+                let index = allBlocks.findIndex(block => block.type === element);
+                if (index>-1) {
+                    // let id = allBlocks[index].id;
+                    let response = wspData.wsp.getBlocksByType(element);
+                    wspData.wsp.removeTypedBlock(response[0]);
+                }
+            });
         });
-
     }
 
     onClose() {

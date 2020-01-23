@@ -95,12 +95,15 @@ class _VPLDomainElementsManager {
             ));
     }
 
-    deleteVPLElements(elements, editors) {
+    deleteVPLElements(elements, mission, editors) {
         editors.forEach(editor => IDECore
             .functionRequest(
                 editor.name,
                 'onDeleteVPLElements',
-                elements,
+                {
+                    mission: mission,
+                    elements: elements
+                },
                 this.name
             ));
     }

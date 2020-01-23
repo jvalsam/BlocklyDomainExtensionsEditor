@@ -570,6 +570,7 @@ export class VPLMission {
 
         VPLDomainElementsManager.deleteVPLElements(
             elements,
+            this._name,
             this._editors
         );
     }
